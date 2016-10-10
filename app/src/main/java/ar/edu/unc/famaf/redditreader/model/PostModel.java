@@ -10,6 +10,9 @@ public class PostModel {
     private int mCommentNumber;
     private String mThumbnail; // This is the image URL
 
+    public PostModel() {
+    }
+
     public PostModel(String title, String author, Date date, int commentNumber, String thumbnail) {
         mTitle = title;
         mAuthor = author;
