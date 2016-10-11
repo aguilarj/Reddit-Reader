@@ -7,15 +7,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="famaf.unc.edu.ar.activitiesassignment.ar.edu.unc.famaf.redditreader.NewsActivityFragment"
+    tools:context="ar.edu.unc.famaf.redditreader.ui.NewsActivityFragment"
     tools:showIn="@layout/activity_news">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No user logged yet"
-        android:id="@+id/loginStatusTextView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+   <ListView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/posts_list_view">
+   </ListView>
 </RelativeLayout>
