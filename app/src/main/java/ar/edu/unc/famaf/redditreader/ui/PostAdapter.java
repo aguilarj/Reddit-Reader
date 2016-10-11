@@ -50,7 +50,7 @@ public class PostAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null)  {
             LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = vi.inflate(R.layout.post_model, parent);
+            convertView = vi.inflate(R.layout.post_model, null);
         }
 
         // Getting views
@@ -67,7 +67,7 @@ public class PostAdapter extends ArrayAdapter {
         title.setText(postModel.getTitle());
         date.setText(getDateDifference(postModel.getDate(), new Date()));
 
-        return super.getView(position, convertView, parent);
+        return convertView;
     }
 
     private String getDateDifference(Date startDate, Date endDate){

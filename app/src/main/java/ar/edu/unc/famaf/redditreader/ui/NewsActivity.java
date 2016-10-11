@@ -32,11 +32,11 @@ public class NewsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_sign_in) {
-            TextView textView = (TextView) findViewById(R.id.loginStatusTextView);
-            textView.setText("User XXXX logged in");
-            return true;
-        }
+//        if (id == R.id.action_sign_in) {
+//            TextView textView = (TextView) findViewById(R.id.loginStatusTextView);
+//            textView.setText("User XXXX logged in");
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

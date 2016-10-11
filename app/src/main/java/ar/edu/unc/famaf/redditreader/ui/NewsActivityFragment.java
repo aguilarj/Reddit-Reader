@@ -5,8 +5,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.List;
 
 import ar.edu.unc.famaf.redditreader.R;
+import ar.edu.unc.famaf.redditreader.backend.Backend;
+import ar.edu.unc.famaf.redditreader.model.PostModel;
 
 
 /**
@@ -20,6 +25,16 @@ public class NewsActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_news, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_news, container, false);
+
+        ListView listView = (ListView) rootView.findViewById(R.id.posts_list_view);
+
+        List<PostModel> postModelList = Backend.getInstance().getTopPosts();
+
+        PostAdapter adapter = new PostAdapter(getContext(), R.layout.post_model, postModelList);
+
+        listView.setAdapter(adapter);
+
+        return rootView;
     }
 }
