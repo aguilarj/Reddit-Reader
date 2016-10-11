@@ -68,7 +68,7 @@ public class PostAdapter extends ArrayAdapter {
         title.setText(postModel.getTitle());
         date.setText(getDateDifference(postModel.getDate(), new Date()));
         subreddit.setText(postModel.getSubreddit());
-
+        image.setImageResource(postModel.getThumbnail());
         return convertView;
     }
 
