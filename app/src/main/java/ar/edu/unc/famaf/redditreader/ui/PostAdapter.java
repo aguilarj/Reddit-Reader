@@ -24,6 +24,15 @@ import ar.edu.unc.famaf.redditreader.model.PostModel;
 public class PostAdapter extends ArrayAdapter {
     private List<PostModel> mPostModelList;
 
+    private static class ViewHolder {
+        TextView author;
+        TextView commentNumber;
+        TextView title;
+        TextView date;
+        TextView subreddit;
+        ImageView image;
+    }
+
     public PostAdapter(Context context, int resource, List<PostModel> postModelList) {
         super(context, resource);
         mPostModelList = postModelList;
@@ -48,27 +57,32 @@ public class PostAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        final ViewHolder holder;
+
         if(convertView == null)  {
             LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.post_model, null);
-        }
+
+            holder = new ViewHolder();
+            holder.author = (TextView) convertView.findViewById(R.id.post_author);
+            holder.commentNumber = (TextView) convertView.findViewById(R.id.post_comment_number);
+            holder.title = (TextView) convertView.findViewById(R.id.post_title);
+            holder.date = (TextView) convertView.findViewById(R.id.post_date);
+            holder.subreddit = (TextView) convertView.findViewById(R.id.post_subreddit);
+            holder.image = (ImageView) convertView.findViewById(R.id.post_image);
+        } else
+            holder = (ViewHolder) convertView.getTag();
 
         // Getting views
         PostModel postModel = mPostModelList.get(position);
-        TextView author = (TextView) convertView.findViewById(R.id.post_author);
-        TextView commentNumber = (TextView) convertView.findViewById(R.id.post_comment_number);
-        TextView title = (TextView) convertView.findViewById(R.id.post_title);
-        TextView date = (TextView) convertView.findViewById(R.id.post_date);
-        TextView subreddit = (TextView) convertView.findViewById(R.id.post_subreddit);
-        ImageView image = (ImageView) convertView.findViewById(R.id.post_image);
 
         // Using the post data in the view
-        author.setText(getContext().getString(R.string.author, postModel.getAuthor()));
-        commentNumber.setText(getContext().getString(R.string.comment_number, postModel.getCommentNumber()));
-        title.setText(postModel.getTitle());
-        date.setText(getDateDifference(postModel.getDate(), new Date()));
-        subreddit.setText(postModel.getSubreddit());
-        image.setImageResource(postModel.getThumbnail());
+        holder.author.setText(getContext().getString(R.string.author, postModel.getAuthor()));
+        holder.commentNumber.setText(getContext().getString(R.string.comment_number, postModel.getCommentNumber()));
+        holder.title.setText(postModel.getTitle());
+        holder.date.setText(getDateDifference(postModel.getDate(), new Date()));
+        holder.subreddit.setText(postModel.getSubreddit());
+        holder.image.setImageResource(postModel.getThumbnail());
         return convertView;
     }
 
