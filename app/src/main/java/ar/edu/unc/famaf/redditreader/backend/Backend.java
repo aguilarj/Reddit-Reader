@@ -29,13 +29,14 @@ public class Backend {
 
         // Configuring date for this particular post
         calendar.set(Calendar.YEAR, 2016);
-        calendar.set(Calendar.MONTH, 10);
-        calendar.set(Calendar.DATE, 9);
-        calendar.set(Calendar.HOUR, 20);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 10);
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
         calendar.set(Calendar.MINUTE, 0);
 
         p1.setDate(calendar.getTime());
         p1.setTitle("Bird thinks guy is a tree");
+        p1.setSubreddit("/r/funny");
 
         // POST MODEL 2
         PostModel p2 = new PostModel();
@@ -45,13 +46,14 @@ public class Backend {
 
         // Configuring date for this particular post
         calendar.set(Calendar.YEAR, 2016);
-        calendar.set(Calendar.MONTH, 10);
-        calendar.set(Calendar.DATE, 8);
-        calendar.set(Calendar.HOUR, 16);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 5);
+        calendar.set(Calendar.HOUR_OF_DAY, 16);
         calendar.set(Calendar.MINUTE, 13);
 
         p2.setDate(calendar.getTime());
         p2.setTitle("Henceforth, he lived happily ever after...");
+        p2.setSubreddit("/r/aww");
 
         // POST MODEL 3
         PostModel p3 = new PostModel();
@@ -61,13 +63,14 @@ public class Backend {
 
         // Configuring date for this particular post
         calendar.set(Calendar.YEAR, 2016);
-        calendar.set(Calendar.MONTH, 10);
-        calendar.set(Calendar.DATE, 6);
-        calendar.set(Calendar.HOUR, 13);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 6);
+        calendar.set(Calendar.HOUR_OF_DAY, 13);
         calendar.set(Calendar.MINUTE, 34);
 
         p3.setDate(calendar.getTime());
         p3.setTitle("Firefighters are fed up with you");
+        p3.setSubreddit("/r/funny");
 
         // POST MODEL 4
         PostModel p4 = new PostModel();
@@ -77,13 +80,14 @@ public class Backend {
 
         // Configuring date for this particular post
         calendar.set(Calendar.YEAR, 2016);
-        calendar.set(Calendar.MONTH, 10);
-        calendar.set(Calendar.DATE, 9);
-        calendar.set(Calendar.HOUR, 10);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 9);
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
         calendar.set(Calendar.MINUTE, 37);
 
         p4.setDate(calendar.getTime());
         p4.setTitle("Looks like we got another stow away");
+        p4.setSubreddit("/r/gifs");
 
         // POST MODEL 5
         PostModel p5 = new PostModel();
@@ -93,13 +97,14 @@ public class Backend {
 
         // Configuring date for this particular post
         calendar.set(Calendar.YEAR, 2016);
-        calendar.set(Calendar.MONTH, 10);
-        calendar.set(Calendar.DATE, 10);
-        calendar.set(Calendar.HOUR, 11);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 10);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
         calendar.set(Calendar.MINUTE, 12);
 
         p5.setDate(calendar.getTime());
         p5.setTitle("$100 bed");
+        p5.setSubreddit("/r/aww");
 
         // Saving models
 

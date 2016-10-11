@@ -59,6 +59,7 @@ public class PostAdapter extends ArrayAdapter {
         TextView commentNumber = (TextView) convertView.findViewById(R.id.post_comment_number);
         TextView title = (TextView) convertView.findViewById(R.id.post_title);
         TextView date = (TextView) convertView.findViewById(R.id.post_date);
+        TextView subreddit = (TextView) convertView.findViewById(R.id.post_subreddit);
         ImageView image = (ImageView) convertView.findViewById(R.id.post_image);
 
         // Using the post data in the view
@@ -66,6 +67,7 @@ public class PostAdapter extends ArrayAdapter {
         commentNumber.setText(getContext().getString(R.string.comment_number, postModel.getCommentNumber()));
         title.setText(postModel.getTitle());
         date.setText(getDateDifference(postModel.getDate(), new Date()));
+        subreddit.setText(postModel.getSubreddit());
 
         return convertView;
     }
@@ -73,6 +75,9 @@ public class PostAdapter extends ArrayAdapter {
     private String getDateDifference(Date startDate, Date endDate){
 
         // Millisecondsseconds
+        long first = endDate.getTime();
+        long second = startDate.getTime();
+
         long different = endDate.getTime() - startDate.getTime();
 
         long secondsInMilliseconds = 1000;
@@ -81,6 +86,7 @@ public class PostAdapter extends ArrayAdapter {
         long daysInMilliseconds = hoursInMilliseconds * 24;
 
         long elapsedDays = different / daysInMilliseconds;
+
         different = different % daysInMilliseconds;
 
         long elapsedHours = different / hoursInMilliseconds;
@@ -92,13 +98,13 @@ public class PostAdapter extends ArrayAdapter {
         long elapsedSeconds = different / secondsInMilliseconds;
 
         if (elapsedDays > 0)
-            return elapsedDays + "days ago";
+            return String.valueOf(elapsedDays) + " days ago";
         if (elapsedHours > 0)
-            return elapsedHours + "hours ago";
+            return String.valueOf(elapsedHours) + " hours ago";
         if (elapsedMinutes > 0)
-            return elapsedHours + "minutes ago.";
+            return String.valueOf(elapsedHours) + " minutes ago.";
         if (elapsedSeconds > 0)
-            return elapsedSeconds + "seconds ago";
+            return String.valueOf(elapsedSeconds) + " seconds ago";
 
         return "recently";
     }
