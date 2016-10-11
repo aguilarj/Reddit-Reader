@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/post_upload_time"
+                android:id="@+id/post_date"
 
                 android:text="Hace 4hs"/>
         </RelativeLayout>
@@ -56,7 +56,7 @@
                 android:text="Author"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:id="@+id/author"/>
+                android:id="@+id/post_author"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:id="@+id/comment_number"
+                    android:id="@+id/post_comment_number"
                     android:text="2112 comentarios"/>
             </LinearLayout>
 

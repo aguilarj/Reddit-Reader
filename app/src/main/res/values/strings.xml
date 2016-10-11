@@ -15,8 +15,9 @@
         completions."
     </string>
 
-    <string name="title_activity_news">"Activity News"
-    </string>
+    <string name="title_activity_news">"Activity News"</string>
 
-
+    <!--Strings used in PostModel's xml-->
+    <string name="author">By %1$s</string>
+    <string name="comment_number">"%1$d comments"</string>
 </resources>
