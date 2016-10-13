@@ -62,7 +62,8 @@ public class PostAdapter extends ArrayAdapter {
         if(convertView == null)  {
             LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = vi.inflate(R.layout.post_model, null);
-
+        }
+        if (convertView.getTag() == null) {
             holder = new ViewHolder();
             holder.author = (TextView) convertView.findViewById(R.id.post_author);
             holder.commentNumber = (TextView) convertView.findViewById(R.id.post_comment_number);
