@@ -113,13 +113,13 @@ public class PostAdapter extends ArrayAdapter {
         long elapsedSeconds = different / secondsInMilliseconds;
 
         if (elapsedDays > 0)
-            return String.valueOf(elapsedDays) + " days ago";
+            return String.valueOf(elapsedDays) + (elapsedDays != 1 ? " days ago" : " day ago");
         if (elapsedHours > 0)
-            return String.valueOf(elapsedHours) + " hours ago";
+            return String.valueOf(elapsedHours) + (elapsedHours != 1 ? " hours ago" : " hour ago");
         if (elapsedMinutes > 0)
-            return String.valueOf(elapsedHours) + " minutes ago.";
+            return String.valueOf(elapsedMinutes) + (elapsedMinutes != 1 ? " minutes ago" : " minute ago");
         if (elapsedSeconds > 0)
-            return String.valueOf(elapsedSeconds) + " seconds ago";
+            return String.valueOf(elapsedSeconds) + (elapsedSeconds != 1 ? " seconds ago" : " second ago");
 
         return "recently";
     }

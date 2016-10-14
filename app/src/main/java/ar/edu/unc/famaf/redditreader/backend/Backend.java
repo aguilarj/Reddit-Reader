@@ -31,9 +31,9 @@ public class Backend {
         // Configuring date for this particular post
         calendar.set(Calendar.YEAR, 2016);
         calendar.set(Calendar.MONTH, Calendar.OCTOBER);
-        calendar.set(Calendar.DAY_OF_MONTH, 10);
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.DAY_OF_MONTH, 14);
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 50);
 
         p1.setDate(calendar.getTime());
         p1.setTitle("Bird thinks guy is a tree");
