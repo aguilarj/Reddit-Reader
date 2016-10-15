@@ -24,6 +24,7 @@ import ar.edu.unc.famaf.redditreader.model.PostModel;
 
 public class PostAdapter extends ArrayAdapter {
     private List<PostModel> mPostModelList;
+    private ThumbnailDownloader mThumbnailDownloader;
 
     private static class ViewHolder {
         TextView author;
@@ -38,6 +39,7 @@ public class PostAdapter extends ArrayAdapter {
     public PostAdapter(Context context, int resource, List<PostModel> postModelList) {
         super(context, resource);
         mPostModelList = postModelList;
+        mThumbnailDownloader = new ThumbnailDownloader();
     }
 
     @Override
@@ -90,7 +92,10 @@ public class PostAdapter extends ArrayAdapter {
         holder.progressBar.setVisibility(View.VISIBLE);
         holder.image.setVisibility(View.GONE);
 
-        ThumbnailDownloader.download(postModel.getThumbnail(), holder.image, holder.progressBar);
+        mThumbnailDownloader.download(postModel.getThumbnail(),
+                                      holder.image,
+                                      holder.progressBar,
+                                      postModel.getId());
 
         return convertView;
     }
