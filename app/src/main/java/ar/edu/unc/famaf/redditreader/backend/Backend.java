@@ -107,6 +107,90 @@ public class Backend {
         p5.setTitle("$100 bed");
         p5.setSubreddit("/r/aww");
 
+        // POST MODEL 6
+        PostModel p6 = new PostModel();
+        p6.setAuthor("lacajadeldiablo");
+        p6.setThumbnail("https://b.thumbs.redditmedia.com/h74JWprM3wljpdBOOpKDxt5sdZWPRtJBVULIobFfCBU.jpg");
+        p6.setCommentNumber(735);
+
+        // Configuring date for this particular post
+        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 10);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 12);
+
+        p6.setDate(calendar.getTime());
+        p6.setTitle("$100 bed");
+        p6.setSubreddit("/r/aww");
+
+        // POST MODEL 7
+        PostModel p7 = new PostModel();
+        p7.setAuthor("lacajadeldiablo");
+        p7.setThumbnail("https://b.thumbs.redditmedia.com/N2rp1KaGV4_jKrqXbMIcfAt_C3Lq9r7w_TKQed-3dGQ.jpg");
+        p7.setCommentNumber(735);
+
+        // Configuring date for this particular post
+        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 10);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 12);
+
+        p7.setDate(calendar.getTime());
+        p7.setTitle("$100 bed");
+        p7.setSubreddit("/r/aww");
+
+        // POST MODEL 8
+        PostModel p8 = new PostModel();
+        p8.setAuthor("lacajadeldiablo");
+        p8.setThumbnail("https://b.thumbs.redditmedia.com/JZUrEDtmUD-grkiTYaeBNagRv0nkJUfIZirHqdPdNxI.jpg");
+        p8.setCommentNumber(735);
+
+        // Configuring date for this particular post
+        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 10);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 12);
+
+        p8.setDate(calendar.getTime());
+        p8.setTitle("$100 bed");
+        p8.setSubreddit("/r/aww");
+
+        // POST MODEL 9
+        PostModel p9 = new PostModel();
+        p9.setAuthor("lacajadeldiablo");
+        p9.setThumbnail("https://b.thumbs.redditmedia.com/RdFk7t4UVA7qD6tz4hgLHUIc3Vs_PRRVXuYMbtSepbA.jpg");
+        p9.setCommentNumber(735);
+
+        // Configuring date for this particular post
+        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 10);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 12);
+
+        p9.setDate(calendar.getTime());
+        p9.setTitle("$100 bed");
+        p9.setSubreddit("/r/aww");
+
+        // POST MODEL 10
+        PostModel p10 = new PostModel();
+        p10.setAuthor("lacajadeldiablo");
+        p10.setThumbnail("https://a.thumbs.redditmedia.com/NiJfvadQD01rkYRi2h1HstxhqnTPia-f128DkDiyOY8.jpg");
+        p10.setCommentNumber(735);
+
+        // Configuring date for this particular post
+        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 10);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 12);
+
+        p10.setDate(calendar.getTime());
+        p10.setTitle("$100 bed");
+        p10.setSubreddit("/r/aww");
         // Saving models
 
         result.add(p1);
@@ -114,6 +198,11 @@ public class Backend {
         result.add(p3);
         result.add(p4);
         result.add(p5);
+        result.add(p6);
+        result.add(p7);
+        result.add(p8);
+        result.add(p9);
+        result.add(p10);
 
         return result;
     }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ public class PostAdapter extends ArrayAdapter {
         TextView date;
         TextView subreddit;
         ImageView image;
+        ProgressBar progressBar;
     }
 
     public PostAdapter(Context context, int resource, List<PostModel> postModelList) {
@@ -71,6 +73,7 @@ public class PostAdapter extends ArrayAdapter {
             holder.date = (TextView) convertView.findViewById(R.id.post_date);
             holder.subreddit = (TextView) convertView.findViewById(R.id.post_subreddit);
             holder.image = (ImageView) convertView.findViewById(R.id.post_image);
+            holder.progressBar = (ProgressBar) convertView.findViewById(R.id.post_progress_bar);
         } else
             holder = (ViewHolder) convertView.getTag();
 
@@ -83,7 +86,12 @@ public class PostAdapter extends ArrayAdapter {
         holder.title.setText(postModel.getTitle());
         holder.date.setText(getDateDifference(postModel.getDate(), new Date()));
         holder.subreddit.setText(postModel.getSubreddit());
-        holder.image.setImageResource(postModel.getThumbnail());
+
+        holder.progressBar.setVisibility(View.VISIBLE);
+        holder.image.setVisibility(View.GONE);
+
+        ThumbnailDownloader.download(postModel.getThumbnail(), holder.image, holder.progressBar);
+
         return convertView;
     }
 
