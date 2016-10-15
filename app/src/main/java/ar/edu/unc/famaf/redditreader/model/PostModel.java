@@ -10,17 +10,19 @@ public class PostModel {
     private int mCommentNumber;
     private String mThumbnail; // This is the image URL
     private String mSubreddit;
+    private String mId;
 
     public PostModel() {
     }
 
-    public PostModel(String title, String author, Date date, int commentNumber, String thumbnail, String subreddit) {
+    public PostModel(String title, String author, Date date, int commentNumber, String thumbnail, String subreddit, String id) {
         mTitle = title;
         mAuthor = author;
         mDate = date;
         mCommentNumber = commentNumber;
         mThumbnail = thumbnail;
         mSubreddit = subreddit;
+        mId = id;
     }
 
     public String getTitle() {
@@ -69,5 +71,13 @@ public class PostModel {
 
     public void setSubreddit(String subreddit) {
         mSubreddit = subreddit;
+    }
+
+    public String getId() {
+        return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
     }
 }
