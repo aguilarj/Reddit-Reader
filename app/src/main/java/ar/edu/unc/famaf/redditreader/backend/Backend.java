@@ -25,7 +25,7 @@ public class Backend {
         // POST MODEL 1
         PostModel p1 = new PostModel();
         p1.setAuthor("bengaldude545");
-        p1.setThumbnail(R.drawable.i1);
+        p1.setThumbnail("https://a.thumbs.redditmedia.com/0e0cKrikx0u2EeCT6Di9LgLXrE2WVICdJpAw1Tj4Ka8.jpg");
         p1.setCommentNumber(1186);
 
         // Configuring date for this particular post
@@ -42,7 +42,7 @@ public class Backend {
         // POST MODEL 2
         PostModel p2 = new PostModel();
         p2.setAuthor("rahul8aggarwal");
-        p2.setThumbnail(R.drawable.i2);
+        p2.setThumbnail("https://a.thumbs.redditmedia.com/1xJJxofAvAglF0XsQzx0z-kI-NcXf62wLaH5VLkEcc0.jpg");
         p2.setCommentNumber(887);
 
         // Configuring date for this particular post
@@ -59,7 +59,7 @@ public class Backend {
         // POST MODEL 3
         PostModel p3 = new PostModel();
         p3.setAuthor("el_matto");
-        p3.setThumbnail(R.drawable.i3);
+        p3.setThumbnail("https://b.thumbs.redditmedia.com/L_P-6sg6mPZ36PW0cN00tEx62W6aeyYqjH9hdMTLyos.jpg");
         p3.setCommentNumber(1154);
 
         // Configuring date for this particular post
@@ -76,7 +76,7 @@ public class Backend {
         // POST MODEL 4
         PostModel p4 = new PostModel();
         p4.setAuthor("SlimJones123");
-        p4.setThumbnail(R.drawable.i4);
+        p4.setThumbnail("https://b.thumbs.redditmedia.com/_gxcq7uLcFHkAmCvBf9hLQ-wMDMgTYBuXtRGZsixL2w.jpg");
         p4.setCommentNumber(1215);
 
         // Configuring date for this particular post
@@ -93,7 +93,7 @@ public class Backend {
         // POST MODEL 5
         PostModel p5 = new PostModel();
         p5.setAuthor("lacajadeldiablo");
-        p5.setThumbnail(R.drawable.i5);
+        p5.setThumbnail("https://b.thumbs.redditmedia.com/fAS3pQnydmpsjIM3MuH9sDNVrF3e4WbwVN9moMaoR3w.jpg");
         p5.setCommentNumber(735);
 
         // Configuring date for this particular post
