@@ -11,13 +11,15 @@ import java.util.List;
 
 import ar.edu.unc.famaf.redditreader.R;
 import ar.edu.unc.famaf.redditreader.backend.Backend;
+import ar.edu.unc.famaf.redditreader.backend.GetTopPostsListener;
 import ar.edu.unc.famaf.redditreader.model.PostModel;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class NewsActivityFragment extends Fragment {
+public class NewsActivityFragment extends Fragment implements GetTopPostsListener {
+    ListView listView = null;
 
     public NewsActivityFragment() {
     }
@@ -27,14 +29,17 @@ public class NewsActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_news, container, false);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.posts_list_view);
+        listView = (ListView) rootView.findViewById(R.id.posts_list_view);
 
-        List<PostModel> postModelList = Backend.getInstance().getTopPosts();
+        Backend backend = Backend.getInstance();
+        backend.getTopPostTask(this);
 
-        PostAdapter adapter = new PostAdapter(getContext(), R.layout.post_model, postModelList);
+         return rootView;
+    }
 
+    @Override
+    public void getPosts(List<PostModel> postModels) {
+        PostAdapter adapter = new PostAdapter(getContext(), R.layout.post_model, postModels);
         listView.setAdapter(adapter);
-
-        return rootView;
     }
 }
