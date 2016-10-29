@@ -18,6 +18,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import ar.edu.unc.famaf.redditreader.R;
+
 /**
  * Created by aguilarjp on 15/10/16.
  */
@@ -172,11 +174,15 @@ public class ThumbnailDownloader {
                 progressBar.setVisibility(View.GONE);
                 imageView.setVisibility(View.VISIBLE);
 
-                Task task = getTask(imageView);
+                if (bitmap != null) {
+                    Task task = getTask(imageView);
 
-                // Change bitmap only if this process is still associated with it
-                if (this == task) {
-                    imageView.setImageBitmap(bitmap);
+                    // Change bitmap only if this process is still associated with it
+                    if (this == task) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                } else {
+                    imageView.setImageResource(R.mipmap.ic_launcher);
                 }
             }
         }
