@@ -1,7 +1,14 @@
 package ar.edu.unc.famaf.redditreader.ui;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,15 +38,34 @@ public class NewsActivityFragment extends Fragment implements GetTopPostsListene
 
         listView = (ListView) rootView.findViewById(R.id.posts_list_view);
 
-        Backend backend = Backend.getInstance();
-        backend.getTopPostTask(this);
+        if (isOnline()) {
+            Backend backend = Backend.getInstance();
+            backend.getTopPostTask(this);
+        } else {
+            new AlertDialog.Builder(getContext())
+                .setTitle("Error")
+                .setMessage("Network unavailable")
+                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ((Activity) getContext()).finish();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+        }
 
-         return rootView;
+        return rootView;
     }
 
     @Override
     public void getPosts(List<PostModel> postModels) {
         PostAdapter adapter = new PostAdapter(getContext(), R.layout.post_model, postModels);
         listView.setAdapter(adapter);
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }
