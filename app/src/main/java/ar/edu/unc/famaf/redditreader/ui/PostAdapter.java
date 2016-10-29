@@ -3,16 +3,15 @@ package ar.edu.unc.famaf.redditreader.ui;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextClock;
 import android.widget.TextView;
 
-import java.util.Date;
 import java.util.List;
 
 import ar.edu.unc.famaf.redditreader.R;
@@ -86,7 +85,11 @@ public class PostAdapter extends ArrayAdapter {
         holder.author.setText(getContext().getString(R.string.author, postModel.getAuthor()));
         holder.commentNumber.setText(getContext().getString(R.string.comment_number, postModel.getCommentNumber()));
         holder.title.setText(postModel.getTitle());
-        holder.date.setText(getDateDifference(postModel.getDate(), new Date()));
+
+        long now = System.currentTimeMillis();
+        CharSequence relativeTime = DateUtils.getRelativeTimeSpanString(postModel.getCreatedTime(), now, DateUtils.MINUTE_IN_MILLIS);
+
+        holder.date.setText(relativeTime);
         holder.subreddit.setText(postModel.getSubreddit());
 
         holder.progressBar.setVisibility(View.VISIBLE);
@@ -98,43 +101,6 @@ public class PostAdapter extends ArrayAdapter {
                                       postModel.getId());
 
         return convertView;
-    }
-
-    private String getDateDifference(Date startDate, Date endDate){
-
-        // Millisecondsseconds
-        long first = endDate.getTime();
-        long second = startDate.getTime();
-
-        long different = endDate.getTime() - startDate.getTime();
-
-        long secondsInMilliseconds = 1000;
-        long minutesInMilliseconds = secondsInMilliseconds * 60;
-        long hoursInMilliseconds = minutesInMilliseconds * 60;
-        long daysInMilliseconds = hoursInMilliseconds * 24;
-
-        long elapsedDays = different / daysInMilliseconds;
-
-        different = different % daysInMilliseconds;
-
-        long elapsedHours = different / hoursInMilliseconds;
-        different = different % hoursInMilliseconds;
-
-        long elapsedMinutes = different / minutesInMilliseconds;
-        different = different % minutesInMilliseconds;
-
-        long elapsedSeconds = different / secondsInMilliseconds;
-
-        if (elapsedDays > 0)
-            return String.valueOf(elapsedDays) + (elapsedDays != 1 ? " days ago" : " day ago");
-        if (elapsedHours > 0)
-            return String.valueOf(elapsedHours) + (elapsedHours != 1 ? " hours ago" : " hour ago");
-        if (elapsedMinutes > 0)
-            return String.valueOf(elapsedMinutes) + (elapsedMinutes != 1 ? " minutes ago" : " minute ago");
-        if (elapsedSeconds > 0)
-            return String.valueOf(elapsedSeconds) + (elapsedSeconds != 1 ? " seconds ago" : " second ago");
-
-        return "recently";
     }
 
     @Override

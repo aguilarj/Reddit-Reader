@@ -1,12 +1,10 @@
 package ar.edu.unc.famaf.redditreader.model;
 
 
-import java.util.Date;
-
 public class PostModel {
     private String mTitle;
     private String mAuthor;
-    private Date mDate;
+    private long mCreatedTime;
     private int mCommentNumber;
     private String mThumbnail; // This is the image URL
     private String mSubreddit;
@@ -15,10 +13,10 @@ public class PostModel {
     public PostModel() {
     }
 
-    public PostModel(String title, String author, Date date, int commentNumber, String thumbnail, String subreddit, String id) {
+    public PostModel(String title, String author, long createdTime, int commentNumber, String thumbnail, String subreddit, String id) {
         mTitle = title;
         mAuthor = author;
-        mDate = date;
+        mCreatedTime = createdTime;
         mCommentNumber = commentNumber;
         mThumbnail = thumbnail;
         mSubreddit = subreddit;
@@ -41,12 +39,12 @@ public class PostModel {
         mAuthor = author;
     }
 
-    public Date getDate() {
-        return mDate;
+    public long getCreatedTime() {
+        return mCreatedTime;
     }
 
-    public void setDate(Date date) {
-        mDate = date;
+    public void setCreatedTime(long createdTime) {
+        mCreatedTime = createdTime;
     }
 
     public int getCommentNumber() {
