@@ -98,7 +98,8 @@ public class PostAdapter extends ArrayAdapter {
         mThumbnailDownloader.download(postModel.getThumbnail(),
                                       holder.image,
                                       holder.progressBar,
-                                      postModel.getId());
+                                      postModel.getId(),
+                                      getContext());
 
         return convertView;
     }

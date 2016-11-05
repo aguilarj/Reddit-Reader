@@ -1,5 +1,6 @@
 package ar.edu.unc.famaf.redditreader.ui;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
@@ -19,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import ar.edu.unc.famaf.redditreader.R;
+import ar.edu.unc.famaf.redditreader.backend.RedditDB;
 
 /**
  * Created by aguilarjp on 15/10/16.
@@ -72,7 +74,7 @@ public class ThumbnailDownloader {
     }
 
     // This is the method used to download
-    public void download(String url, ImageView imageView, ProgressBar progressBar, String id) {
+    public void download(String url, ImageView imageView, ProgressBar progressBar, String id, Context context) {
         if (cancelPotentialDownload(url, imageView)) {
             final Bitmap bitmap = getBitmapFromMemCache(id);
 
@@ -82,7 +84,7 @@ public class ThumbnailDownloader {
                 imageView.setImageBitmap(bitmap); // The bitmap was previously downloaded
                 Log.i(TAG, "Bitmap loaded from cache");
             } else {
-                Task task = new Task(imageView, progressBar, id);
+                Task task = new Task(imageView, progressBar, id, context);
                 DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
                 imageView.setImageDrawable(downloadedDrawable); // This drawable actually links
                                                                 // the task with the imageView
@@ -129,12 +131,13 @@ public class ThumbnailDownloader {
         private String postId;
         private final WeakReference<ImageView> imageViewReference;
         private final WeakReference<ProgressBar> progressBarReference;
+        private Context mContext;
 
-
-        public Task(ImageView imageView, ProgressBar progressBar, String id) {
+        public Task(ImageView imageView, ProgressBar progressBar, String id, Context context) {
             imageViewReference = new WeakReference<>(imageView);
             progressBarReference = new WeakReference<>(progressBar);
             postId = id;
+            mContext = context;
         }
 
         @Override
@@ -174,15 +177,24 @@ public class ThumbnailDownloader {
                 progressBar.setVisibility(View.GONE);
                 imageView.setVisibility(View.VISIBLE);
 
+                RedditDB redditDB = new RedditDB(mContext);
+
                 if (bitmap != null) {
                     Task task = getTask(imageView);
 
                     // Change bitmap only if this process is still associated with it
                     if (this == task) {
                         imageView.setImageBitmap(bitmap);
+                        redditDB.addBipmapToPost(postId, bitmap);
                     }
                 } else {
-                    imageView.setImageResource(R.mipmap.ic_launcher);
+                    bitmap = redditDB.getBitmapFromPost(postId);
+                    if (bitmap != null){
+                        imageView.setImageBitmap(bitmap);
+                        Log.d(TAG, "Bitmap loaded from database");
+                    } else {
+                        imageView.setImageResource(R.mipmap.ic_launcher);
+                    }
                 }
             }
         }
