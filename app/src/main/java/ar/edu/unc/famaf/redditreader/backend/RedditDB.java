@@ -4,8 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +43,10 @@ public class RedditDB {
             values.put(RedditDBHelper.POST_TABLE_AUTHOR, postModel.getAuthor());
             values.put(RedditDBHelper.POST_TABLE_CREATED_TIME, postModel.getCreatedTime());
             values.put(RedditDBHelper.POST_TABLE_COMMENT_NUMBER, postModel.getCommentNumber());
-            values.put(RedditDBHelper.POST_TABLE_THUMBNAIL, postModel.getThumbnail());
+            values.put(RedditDBHelper.POST_TABLE_THUMBNAIL_URL, postModel.getThumbnail());
             values.put(RedditDBHelper.POST_TABLE_SUBREDDIT, postModel.getSubreddit());
             values.put(RedditDBHelper.POST_TABLE_POST_ID, postModel.getId());
+            values.putNull(RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP);
 
             // Insert the new row, returning the primary key value of the new row
             writableDatabase.insert(RedditDBHelper.POST_TABLE, null, values);
@@ -69,7 +73,7 @@ public class RedditDB {
                 postModel.setAuthor(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_AUTHOR))));
                 postModel.setCreatedTime(c.getInt((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_CREATED_TIME))));
                 postModel.setCommentNumber(c.getInt((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_COMMENT_NUMBER))));
-                postModel.setThumbnail(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_THUMBNAIL))));
+                postModel.setThumbnail(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_THUMBNAIL_URL))));
                 postModel.setSubreddit(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_SUBREDDIT))));
                 postModel.setId(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_POST_ID))));
 
@@ -90,5 +94,44 @@ public class RedditDB {
         c.close();
 
         return !result;
+    }
+
+    public Bitmap getBitmapFromPost(String postId) {
+        String selectQuery =  "SELECT " + RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP +
+                " FROM " + RedditDBHelper.POST_TABLE +
+                " WHERE " + RedditDBHelper.POST_TABLE_POST_ID + "=" + "'" + postId + "'";
+
+        Cursor c = readableDatabase.rawQuery(selectQuery, null);
+        c.moveToFirst();
+
+        Bitmap bitmap = null;
+
+        if(!c.isNull(c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP))) {
+            byte[] bitmapInBytes = c.getBlob(c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP));
+            bitmap = getImage(bitmapInBytes);
+        }
+
+        c.close();
+
+        return bitmap;
+    }
+
+    public void addBipmapToPost(String postId, Bitmap thumbnail) {
+        ContentValues values = new ContentValues();
+
+        values.put(RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP, getBytes(thumbnail));
+
+        String whereClause = RedditDBHelper.POST_TABLE_POST_ID + "=" + "'" + postId + "'";
+        writableDatabase.update(RedditDBHelper.POST_TABLE, values, whereClause, null);
+    }
+
+    private static byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,0, stream);
+        return stream.toByteArray();
+    }
+
+    private static Bitmap getImage(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 }
