@@ -39,7 +39,7 @@ public class NewsActivityFragment extends Fragment implements GetTopPostsListene
         listView = (ListView) rootView.findViewById(R.id.posts_list_view);
 
         Backend backend = Backend.getInstance();
-        backend.getTopPostTask(this);
+        backend.getTopPostTask(this, getContext());
 
         return rootView;
     }
