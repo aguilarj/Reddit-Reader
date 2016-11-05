@@ -28,10 +28,12 @@ public class GetTopPostsTask extends AsyncTask<URL, Integer, Listing> {
 
         Listing listing = null;
 
-        try {
-            listing = new Parser().readJsonStream(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (inputStream != null) {
+            try {
+                listing = new Parser().readJsonStream(inputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return listing;

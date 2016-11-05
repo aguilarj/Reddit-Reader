@@ -9,5 +9,6 @@ import ar.edu.unc.famaf.redditreader.model.PostModel;
  */
 
 public interface GetTopPostsListener {
-    void getPosts(List<PostModel> postModels);
+    void downloadError();
+    void setAdapter(List<PostModel> postModels);
 }

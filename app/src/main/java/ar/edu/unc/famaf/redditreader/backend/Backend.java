@@ -17,6 +17,7 @@ public class Backend {
 
     public void getTopPostTask(final GetTopPostsListener listener) {
         URL url = null;
+
         try {
             url = new URL("https://www.reddit.com/top/.json?limit=50");
         } catch(MalformedURLException e) {
@@ -26,7 +27,11 @@ public class Backend {
         new GetTopPostsTask() {
             @Override
             protected void onPostExecute(Listing listing) {
-                listener.getPosts(listing.getChildren());
+                if (listing != null) {
+                    listener.setAdapter(listing.getChildren());
+                } else {
+                    listener.downloadError();
+                }
             }
         }.execute(url);
     }

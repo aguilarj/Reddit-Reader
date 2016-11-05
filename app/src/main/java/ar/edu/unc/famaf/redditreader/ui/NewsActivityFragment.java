@@ -38,11 +38,21 @@ public class NewsActivityFragment extends Fragment implements GetTopPostsListene
 
         listView = (ListView) rootView.findViewById(R.id.posts_list_view);
 
-        if (isOnline()) {
-            Backend backend = Backend.getInstance();
-            backend.getTopPostTask(this);
-        } else {
-            new AlertDialog.Builder(getContext())
+        Backend backend = Backend.getInstance();
+        backend.getTopPostTask(this);
+
+        return rootView;
+    }
+
+    @Override
+    public void setAdapter(List<PostModel> postModels) {
+        PostAdapter adapter = new PostAdapter(getContext(), R.layout.post_model, postModels);
+        listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void downloadError() {
+        new AlertDialog.Builder(getContext())
                 .setTitle("Error")
                 .setMessage("Network unavailable")
                 .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
@@ -52,20 +62,5 @@ public class NewsActivityFragment extends Fragment implements GetTopPostsListene
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
-        }
-
-        return rootView;
-    }
-
-    @Override
-    public void getPosts(List<PostModel> postModels) {
-        PostAdapter adapter = new PostAdapter(getContext(), R.layout.post_model, postModels);
-        listView.setAdapter(adapter);
-    }
-
-    public boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }
