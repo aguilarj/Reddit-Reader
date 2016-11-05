@@ -188,13 +188,7 @@ public class ThumbnailDownloader {
                         redditDB.addBipmapToPost(postId, bitmap);
                     }
                 } else {
-                    bitmap = redditDB.getBitmapFromPost(postId);
-                    if (bitmap != null){
-                        imageView.setImageBitmap(bitmap);
-                        Log.d(TAG, "Bitmap loaded from database");
-                    } else {
-                        imageView.setImageResource(R.mipmap.ic_launcher);
-                    }
+                    imageView.setImageResource(R.mipmap.ic_launcher);
                 }
             }
         }

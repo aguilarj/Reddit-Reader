@@ -1,9 +1,11 @@
 package ar.edu.unc.famaf.redditreader.ui;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ar.edu.unc.famaf.redditreader.R;
+import ar.edu.unc.famaf.redditreader.backend.RedditDB;
 import ar.edu.unc.famaf.redditreader.model.PostModel;
 
 /**
@@ -22,6 +25,8 @@ import ar.edu.unc.famaf.redditreader.model.PostModel;
  */
 
 public class PostAdapter extends ArrayAdapter {
+    private static final String TAG = "PostAdapter";
+
     private List<PostModel> mPostModelList;
     private ThumbnailDownloader mThumbnailDownloader;
 
@@ -95,11 +100,22 @@ public class PostAdapter extends ArrayAdapter {
         holder.progressBar.setVisibility(View.VISIBLE);
         holder.image.setVisibility(View.GONE);
 
-        mThumbnailDownloader.download(postModel.getThumbnail(),
-                                      holder.image,
-                                      holder.progressBar,
-                                      postModel.getId(),
-                                      getContext());
+        RedditDB redditDB = new RedditDB(getContext());
+        Bitmap thumbnail = redditDB.getBitmapFromPost(postModel.getId());
+
+        if (thumbnail != null) {
+            holder.image.setImageBitmap(thumbnail);
+            holder.progressBar.setVisibility(View.GONE);
+            holder.image.setVisibility(View.VISIBLE);
+
+            Log.d(TAG, "Bitmap loaded from database");
+        } else {
+            mThumbnailDownloader.download(postModel.getThumbnail(),
+                    holder.image,
+                    holder.progressBar,
+                    postModel.getId(),
+                    getContext());
+        }
 
         return convertView;
     }
