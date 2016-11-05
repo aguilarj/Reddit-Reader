@@ -21,9 +21,10 @@ public class RedditDBHelper extends SQLiteOpenHelper {
     public static final String POST_TABLE_AUTHOR = "author";
     public static final String POST_TABLE_CREATED_TIME = "created_time";
     public static final String POST_TABLE_COMMENT_NUMBER = "comment_number";
-    public static final String POST_TABLE_THUMBNAIL = "thumbnail";
+    public static final String POST_TABLE_THUMBNAIL_URL = "thumbnail_url";
     public static final String POST_TABLE_SUBREDDIT = "subreddit";
     public static final String POST_TABLE_POST_ID = "id";
+    public static final String POST_TABLE_THUMBNAIL_BITMAP = "thumbnail_bitmap";
 
     public RedditDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,10 +38,11 @@ public class RedditDBHelper extends SQLiteOpenHelper {
                 + POST_TABLE_AUTHOR + " text not null, "
                 + POST_TABLE_CREATED_TIME + " integer not null, "
                 + POST_TABLE_COMMENT_NUMBER + " integer not null, "
-                + POST_TABLE_THUMBNAIL + " text not null, "
+                + POST_TABLE_THUMBNAIL_URL + " text not null, "
                 + POST_TABLE_SUBREDDIT + " text not null, "
-                + POST_TABLE_POST_ID + " text not null"
-                + " );";
+                + POST_TABLE_POST_ID + " text not null, "
+                + POST_TABLE_THUMBNAIL_BITMAP + " blob "
+                + ");";
 
         Log.d(TAG, createSentence);
         db.execSQL(createSentence);
