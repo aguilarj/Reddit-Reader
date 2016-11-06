@@ -28,7 +28,6 @@ public class PostAdapter extends ArrayAdapter {
     private static final String TAG = "PostAdapter";
 
     private List<PostModel> mPostModelList;
-    private ThumbnailDownloader mThumbnailDownloader;
 
     private static class ViewHolder {
         TextView author;
@@ -43,7 +42,6 @@ public class PostAdapter extends ArrayAdapter {
     public PostAdapter(Context context, int resource, List<PostModel> postModelList) {
         super(context, resource);
         mPostModelList = postModelList;
-        mThumbnailDownloader = new ThumbnailDownloader();
     }
 
     @Override
@@ -110,7 +108,7 @@ public class PostAdapter extends ArrayAdapter {
 
             Log.d(TAG, "Bitmap loaded from database");
         } else {
-            mThumbnailDownloader.download(postModel.getThumbnail(),
+            ThumbnailDownloader.download(postModel.getThumbnail(),
                     holder.image,
                     holder.progressBar,
                     postModel.getId(),
