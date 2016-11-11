@@ -10,6 +10,7 @@ import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 import ar.edu.unc.famaf.redditreader.model.Listing;
@@ -57,11 +58,13 @@ public class RedditDB {
         writableDatabase.delete(RedditDBHelper.POST_TABLE, null, null);
     }
 
-    public List<PostModel> getPosts() {
+    public List<PostModel> getPosts(int start, int end) {
         List<PostModel> postModels = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM " + RedditDBHelper.POST_TABLE;
-        Log.e(TAG, selectQuery);
+        String selectQuery = "SELECT * FROM " + RedditDBHelper.POST_TABLE +
+                             " LIMIT " + Integer.toString(start) + ", " + Integer.toString(end);
+
+        Log.d(TAG, selectQuery);
 
         Cursor c = readableDatabase.rawQuery(selectQuery, null);
 

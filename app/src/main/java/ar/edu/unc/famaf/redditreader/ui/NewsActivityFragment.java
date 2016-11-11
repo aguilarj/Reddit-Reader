@@ -1,11 +1,7 @@
 package ar.edu.unc.famaf.redditreader.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -14,39 +10,64 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unc.famaf.redditreader.R;
 import ar.edu.unc.famaf.redditreader.backend.Backend;
-import ar.edu.unc.famaf.redditreader.backend.GetTopPostsListener;
+import ar.edu.unc.famaf.redditreader.backend.EndlessScrollListener;
+import ar.edu.unc.famaf.redditreader.backend.PostsIteratorListener;
 import ar.edu.unc.famaf.redditreader.model.PostModel;
 
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class NewsActivityFragment extends Fragment implements GetTopPostsListener {
+public class NewsActivityFragment extends Fragment implements PostsIteratorListener {
     ListView listView = null;
+    PostAdapter adapter = null;
+    List<PostModel> posts = null;
 
     public NewsActivityFragment() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_news, container, false);
 
         listView = (ListView) rootView.findViewById(R.id.posts_list_view);
 
-        Backend backend = Backend.getInstance();
-        backend.getTopPostTask(this, getContext());
+        // Fetch the first posts
+        Backend.getInstance().getNextPosts(this, getContext());
+
+        listView.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public boolean onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to your AdapterView
+
+                Backend.getInstance().getNextPosts(NewsActivityFragment.this, getContext());
+
+                // or loadNextDataFromApi(totalItemsCount);
+                return true; // ONLY if more data is actually being loaded; false otherwise.
+            }
+        });
 
         return rootView;
     }
 
     @Override
-    public void setAdapter(List<PostModel> postModels) {
-        PostAdapter adapter = new PostAdapter(getContext(), R.layout.post_model, postModels);
+    public void nextPosts(List<PostModel> nextPosts) {
+        posts.addAll(nextPosts);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setAdapter(List<PostModel> firstPosts) {
+        posts = firstPosts;
+
+        adapter = new PostAdapter(getContext(), R.layout.post_model, posts);
         listView.setAdapter(adapter);
     }
 
