@@ -66,7 +66,7 @@ public class Backend {
         if (nextIndex == -1) {
             getTopPostTask(listener, context);
         } else {
-            listener.nextPosts(redditDB.getPosts(nextIndex, nextIndex + POSTS_PER_PAGE));
+            listener.nextPosts(redditDB.getPosts(nextIndex, POSTS_PER_PAGE));
             nextIndex += POSTS_PER_PAGE;
         }
     }
