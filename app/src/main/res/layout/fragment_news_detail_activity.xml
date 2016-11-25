@@ -23,10 +23,10 @@
                 tools:text="subreddit" />
 
             <TextView
-                android:text="upload_time"
+                android:text="created_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/post_detail_upload_time"
+                android:id="@+id/post_detail_created_time"
                 android:layout_weight="1"
                 android:textAlignment="textEnd"
                 android:layout_gravity="end"/>
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/post_detail_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textAlignment="center" />
 
         <TextView
