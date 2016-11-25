@@ -1,5 +1,6 @@
 package ar.edu.unc.famaf.redditreader.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -44,6 +45,8 @@ public class NewsActivity extends AppCompatActivity implements NewsActivityFragm
 
     @Override
     public void onPostItemPicked(PostModel post) {
-        // TODO: Implement
+        Intent intent = new Intent(this, NewsDetailActivity.class);
+        intent.putExtra(NewsDetailActivity.EXTRA_POST, post);
+        startActivity(intent);
     }
 }
