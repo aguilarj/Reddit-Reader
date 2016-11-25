@@ -9,9 +9,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import ar.edu.unc.famaf.redditreader.R;
+import ar.edu.unc.famaf.redditreader.model.PostModel;
 
 
-public class NewsActivity extends AppCompatActivity {
+public class NewsActivity extends AppCompatActivity implements NewsActivityFragment.OnPostItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +40,10 @@ public class NewsActivity extends AppCompatActivity {
 //        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPostItemPicked(PostModel post) {
+        // TODO: Implement
     }
 }

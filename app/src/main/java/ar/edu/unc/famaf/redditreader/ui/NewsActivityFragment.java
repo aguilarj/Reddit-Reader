@@ -1,6 +1,7 @@
 package ar.edu.unc.famaf.redditreader.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -27,14 +29,29 @@ public class NewsActivityFragment extends Fragment implements PostsIteratorListe
     ListView listView = null;
     PostAdapter adapter = null;
     List<PostModel> posts = null;
+    Activity activity = null;
+
+    public interface OnPostItemSelectedListener{
+        void onPostItemPicked(PostModel post);
+    }
 
     public NewsActivityFragment() {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity){
+            activity = (Activity) context;
+        }
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.fragment_news, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_news, container, false);
 
         listView = (ListView) rootView.findViewById(R.id.posts_list_view);
 
@@ -51,6 +68,17 @@ public class NewsActivityFragment extends Fragment implements PostsIteratorListe
 
                 // or loadNextDataFromApi(totalItemsCount);
                 return true; // ONLY if more data is actually being loaded; false otherwise.
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    ((NewsActivity) activity).onPostItemPicked(posts.get(i));
+                } catch (ClassCastException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
