@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ar.edu.unc.famaf.redditreader.ui.NewsDetailActivityFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="TextView"
+                android:layout_width="215dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_detail_subreddit"
+                tools:text="subreddit" />
+
+            <TextView
+                android:text="upload_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_detail_upload_time"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:layout_gravity="end"/>
+        </LinearLayout>
+
+        <TextView
+            android:text="title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/post_detail_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+            android:textAlignment="center" />
+
+        <TextView
+            android:text="author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/post_detail_author"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+</FrameLayout>
