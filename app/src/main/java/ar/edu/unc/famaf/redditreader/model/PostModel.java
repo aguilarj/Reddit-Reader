@@ -1,7 +1,9 @@
 package ar.edu.unc.famaf.redditreader.model;
 
 
-public class PostModel {
+import java.io.Serializable;
+
+public class PostModel implements Serializable {
     private String mTitle;
     private String mAuthor;
     private long mCreatedTime;
