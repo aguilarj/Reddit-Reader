@@ -5,76 +5,94 @@
     android:layout_height="match_parent"
     tools:context="ar.edu.unc.famaf.redditreader.ui.NewsDetailActivityFragment">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="1">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
+            android:weightSum="1"
+            android:layout_alignParentTop="true"
+            android:id="@+id/post_detail_all"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="TextView"
-                android:layout_width="215dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/post_detail_subreddit"
-                tools:text="subreddit" />
-
-            <TextView
-                android:text="created_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/post_detail_created_time"
-                android:layout_weight="1"
-                android:textAlignment="textEnd"
-                android:layout_gravity="end"/>
-        </LinearLayout>
-
-        <TextView
-            android:text="title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/post_detail_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textAlignment="center" />
-
-        <TextView
-            android:text="author"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/post_detail_author"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textAlignment="center" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.59"
-            android:gravity="center_vertical|center_horizontal">
-
-            <ProgressBar
-                android:visibility="gone"
-                android:layout_width="82dp"
-                android:layout_height="80dp"
-                android:gravity="center"
-                android:id="@+id/post_detail_progress_bar"
-                tools:gravity="center_vertical|center_horizontal|center"
-                tools:padding="10dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:paddingTop="10dp"
-                android:visibility="gone"
-                android:id="@+id/post_detail_image"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="TextView"
+                    android:layout_width="215dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/post_detail_subreddit"
+                    tools:text="subreddit" />
+
+                <TextView
+                    android:text="created_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/post_detail_created_time"
+                    android:layout_weight="1"
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="end"/>
+            </LinearLayout>
+
+            <TextView
+                android:text="title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_detail_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_detail_author"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textAlignment="center" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.59"
+                android:gravity="center_vertical|center_horizontal">
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:layout_width="82dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:id="@+id/post_detail_progress_bar"
+                    tools:gravity="center_vertical|center_horizontal|center"
+                    tools:padding="10dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:paddingTop="10dp"
+                    android:visibility="gone"
+                    android:id="@+id/post_detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
+        <Button
+            android:text="Link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/post_detail_link_button"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="false"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
 </FrameLayout>

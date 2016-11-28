@@ -1,6 +1,7 @@
 package ar.edu.unc.famaf.redditreader.ui;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -36,7 +38,7 @@ public class NewsDetailActivityFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootview = inflater.inflate(R.layout.fragment_news_detail_activity, container, false);
 
-        PostModel post = (PostModel) getArguments().getSerializable(NewsDetailActivity.EXTRA_POST);
+        final PostModel post = (PostModel) getArguments().getSerializable(NewsDetailActivity.EXTRA_POST);
 
         TextView author = (TextView) rootview.findViewById(R.id.post_detail_author);
         TextView title = (TextView) rootview.findViewById(R.id.post_detail_title);
@@ -44,6 +46,7 @@ public class NewsDetailActivityFragment extends Fragment {
         TextView created_time = (TextView) rootview.findViewById(R.id.post_detail_created_time);
         ImageView image = (ImageView) rootview.findViewById(R.id.post_detail_image);
         ProgressBar progressBar = (ProgressBar) rootview.findViewById(R.id.post_detail_progress_bar);
+        Button link_button = (Button) rootview.findViewById(R.id.post_detail_link_button);
 
         author.setText(post.getAuthor());
         title.setText(post.getTitle());
@@ -51,7 +54,7 @@ public class NewsDetailActivityFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         created_time.setText(sdf.format(new Date(post.getCreatedTime())));
 
-        if (post.getPostHint().equals("image")) {
+        if (post.getPostHint() != null && post.getPostHint().equals("image")) {
             progressBar.setVisibility(View.VISIBLE);
             image.setVisibility(View.GONE);
 
@@ -72,6 +75,16 @@ public class NewsDetailActivityFragment extends Fragment {
                         getContext(),
                         ImageDownloader.DOWNLOAD_IMAGE);
             }
+        } else {
+            link_button.setVisibility(View.VISIBLE);
+            link_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                    intent.putExtra(WebViewActivity.POST_LINK, post.getImage());
+                    startActivity(intent);
+                }
+            });
         }
 
         return rootview;
