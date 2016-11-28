@@ -11,18 +11,23 @@ public class PostModel implements Serializable {
     private String mThumbnail; // This is the image URL
     private String mSubreddit;
     private String mId;
+    private String mPostHint;
+    private String mImage;
 
-    public PostModel() {
-    }
+    public PostModel() {}
 
-    public PostModel(String title, String author, long createdTime, int commentNumber, String thumbnail, String subreddit, String id) {
-        mTitle = title;
-        mAuthor = author;
-        mCreatedTime = createdTime;
-        mCommentNumber = commentNumber;
-        mThumbnail = thumbnail;
-        mSubreddit = subreddit;
-        mId = id;
+    public PostModel(String mTitle, String mAuthor, long mCreatedTime, int mCommentNumber,
+                     String mThumbnail, String mSubreddit, String mId, String mPostHint,
+                     String mImage) {
+        this.mTitle = mTitle;
+        this.mAuthor = mAuthor;
+        this.mCreatedTime = mCreatedTime;
+        this.mCommentNumber = mCommentNumber;
+        this.mThumbnail = mThumbnail;
+        this.mSubreddit = mSubreddit;
+        this.mId = mId;
+        this.mPostHint = mPostHint;
+        this.mImage = mImage;
     }
 
     public String getTitle() {
@@ -79,5 +84,21 @@ public class PostModel implements Serializable {
 
     public void setId(String id) {
         mId = id;
+    }
+
+    public String getPostHint() {
+        return mPostHint;
+    }
+
+    public void setPostHint(String mPostHint) {
+        this.mPostHint = mPostHint;
+    }
+
+    public String getImage() {
+        return mImage;
+    }
+
+    public void setImage(String mImage) {
+        this.mImage = mImage;
     }
 }

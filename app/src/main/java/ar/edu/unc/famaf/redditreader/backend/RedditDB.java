@@ -10,7 +10,6 @@ import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 
 import ar.edu.unc.famaf.redditreader.model.Listing;
@@ -47,7 +46,10 @@ public class RedditDB {
             values.put(RedditDBHelper.POST_TABLE_THUMBNAIL_URL, postModel.getThumbnail());
             values.put(RedditDBHelper.POST_TABLE_SUBREDDIT, postModel.getSubreddit());
             values.put(RedditDBHelper.POST_TABLE_POST_ID, postModel.getId());
+            values.put(RedditDBHelper.POST_TABLE_POST_HINT, postModel.getPostHint());
+            values.put(RedditDBHelper.POST_TABLE_IMAGE_URL, postModel.getImage());
             values.putNull(RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP);
+            values.putNull(RedditDBHelper.POST_TABLE_IMAGE_BITMAP);
 
             // Insert the new row, returning the primary key value of the new row
             writableDatabase.insert(RedditDBHelper.POST_TABLE, null, values);
@@ -79,6 +81,8 @@ public class RedditDB {
                 postModel.setThumbnail(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_THUMBNAIL_URL))));
                 postModel.setSubreddit(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_SUBREDDIT))));
                 postModel.setId(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_POST_ID))));
+                postModel.setPostHint(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_POST_HINT))));
+                postModel.setImage(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_IMAGE_URL))));
 
                 postModels.add(postModel);
             } while(c.moveToNext());
@@ -99,8 +103,8 @@ public class RedditDB {
         return !result;
     }
 
-    public Bitmap getBitmapFromPost(String postId) {
-        String selectQuery =  "SELECT " + RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP +
+    private Bitmap getBitmap(String postId, String column) {
+        String selectQuery =  "SELECT " + column +
                 " FROM " + RedditDBHelper.POST_TABLE +
                 " WHERE " + RedditDBHelper.POST_TABLE_POST_ID + "=" + "'" + postId + "'";
 
@@ -109,8 +113,8 @@ public class RedditDB {
 
         Bitmap bitmap = null;
 
-        if(!c.isNull(c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP))) {
-            byte[] bitmapInBytes = c.getBlob(c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP));
+        if(!c.isNull(c.getColumnIndexOrThrow(column))) {
+            byte[] bitmapInBytes = c.getBlob(c.getColumnIndexOrThrow(column));
             bitmap = getImage(bitmapInBytes);
         }
 
@@ -119,18 +123,34 @@ public class RedditDB {
         return bitmap;
     }
 
-    public void addBipmapToPost(String postId, Bitmap thumbnail) {
+    public Bitmap getThumbnailBitmap (String postId) {
+        return getBitmap(postId, RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP);
+    }
+
+    public Bitmap getImageBitmap (String postId) {
+        return getBitmap(postId, RedditDBHelper.POST_TABLE_IMAGE_BITMAP);
+    }
+
+    private void addBitmap(String postId, String column, Bitmap thumbnail) {
         ContentValues values = new ContentValues();
 
-        values.put(RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP, getBytes(thumbnail));
+        values.put(column, getBytes(thumbnail));
 
         String whereClause = RedditDBHelper.POST_TABLE_POST_ID + "=" + "'" + postId + "'";
         writableDatabase.update(RedditDBHelper.POST_TABLE, values, whereClause, null);
     }
 
+    public void addThumbnailToPost(String postId, Bitmap thumbnail) {
+        addBitmap(postId, RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP, thumbnail);
+    }
+
+    public void addImageToPost(String postId, Bitmap image) {
+        addBitmap(postId, RedditDBHelper.POST_TABLE_IMAGE_BITMAP, image);
+    }
+
     private static byte[] getBytes(Bitmap bitmap) {
         ByteArrayOutputStream stream=new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,0, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
     }
 

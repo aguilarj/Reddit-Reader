@@ -99,7 +99,7 @@ public class PostAdapter extends ArrayAdapter {
         holder.image.setVisibility(View.GONE);
 
         RedditDB redditDB = new RedditDB(getContext());
-        Bitmap thumbnail = redditDB.getBitmapFromPost(postModel.getId());
+        Bitmap thumbnail = redditDB.getThumbnailBitmap(postModel.getId());
 
         if (thumbnail != null) {
             holder.image.setImageBitmap(thumbnail);
@@ -108,11 +108,12 @@ public class PostAdapter extends ArrayAdapter {
 
             Log.d(TAG, "Bitmap loaded from database");
         } else {
-            ThumbnailDownloader.download(postModel.getThumbnail(),
+            ImageDownloader.download(postModel.getThumbnail(),
                     holder.image,
                     holder.progressBar,
                     postModel.getId(),
-                    getContext());
+                    getContext(),
+                    ImageDownloader.DOWNLOAD_THUMBNAIL);
         }
 
         return convertView;

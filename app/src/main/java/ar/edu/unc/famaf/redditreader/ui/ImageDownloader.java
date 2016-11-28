@@ -25,8 +25,10 @@ import ar.edu.unc.famaf.redditreader.backend.RedditDB;
  * Created by aguilarjp on 15/10/16.
  */
 
-public class ThumbnailDownloader {
-    private static final String TAG = "ThumbnailDownloader";
+public class ImageDownloader {
+    private static final String TAG = "ImageDownloader";
+    public static final String DOWNLOAD_THUMBNAIL = "download_thumbnail";
+    public static final String DOWNLOAD_IMAGE = "download_image";
 
     // Class to bind a task with an ImageView
     private static class DownloadedDrawable extends ColorDrawable {
@@ -42,9 +44,9 @@ public class ThumbnailDownloader {
     }
 
     // This is the method used to download
-    public static void download(String url, ImageView imageView, ProgressBar progressBar, String id, Context context) {
+    public static void download(String url, ImageView imageView, ProgressBar progressBar, String id, Context context, String option) {
         if (cancelPotentialDownload(url, imageView)) {
-            Task task = new Task(imageView, progressBar, id, context);
+            Task task = new Task(imageView, progressBar, id, context, option);
             DownloadedDrawable downloadedDrawable = new DownloadedDrawable(task);
             imageView.setImageDrawable(downloadedDrawable); // This drawable actually links
                                                             // the task with the imageView
@@ -91,12 +93,14 @@ public class ThumbnailDownloader {
         private final WeakReference<ImageView> imageViewReference;
         private final WeakReference<ProgressBar> progressBarReference;
         private Context mContext;
+        private String mOption;
 
-        public Task(ImageView imageView, ProgressBar progressBar, String id, Context context) {
+        public Task(ImageView imageView, ProgressBar progressBar, String id, Context context, String option) {
             imageViewReference = new WeakReference<>(imageView);
             progressBarReference = new WeakReference<>(progressBar);
             postId = id;
             mContext = context;
+            mOption = option;
         }
 
         @Override
@@ -143,7 +147,10 @@ public class ThumbnailDownloader {
                     // Change bitmap only if this process is still associated with it
                     if (this == task) {
                         imageView.setImageBitmap(bitmap);
-                        redditDB.addBipmapToPost(postId, bitmap);
+                        if (mOption.equals(DOWNLOAD_THUMBNAIL))
+                            redditDB.addThumbnailToPost(postId, bitmap);
+                        else if (mOption.equals(DOWNLOAD_IMAGE))
+                            redditDB.addImageToPost(postId, bitmap);
                     }
                 } else {
                     imageView.setImageResource(R.mipmap.ic_launcher);

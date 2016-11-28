@@ -87,6 +87,8 @@ public class Parser {
         String thumbnail = null;
         String subreddit = null;
         String id = null;
+        String postHint = null;
+        String image = null;
 
         reader.beginObject();
         while(reader.hasNext()) {
@@ -111,10 +113,16 @@ public class Parser {
                             title = reader.nextString();
                             break;
                         case "created_utc":
-                            createdTime = reader.nextLong() * 1000; // Epoch is in seconds, it's in miliseconds
+                            createdTime = reader.nextLong() * 1000; // Epoch isn't in seconds, it's in miliseconds
                             break;
                         case "num_comments":
                             commentNumber = reader.nextInt();
+                            break;
+                        case "post_hint":
+                            postHint = reader.nextString();
+                            break;
+                        case "url":
+                            image = reader.nextString();
                             break;
                         default:
                             reader.skipValue();
@@ -127,7 +135,7 @@ public class Parser {
             }
         }
         reader.endObject();
-        return new PostModel(title, author, createdTime, commentNumber, thumbnail, subreddit, id);
+        return new PostModel(title, author, createdTime, commentNumber, thumbnail, subreddit, id, postHint, image);
     }
 
 }
