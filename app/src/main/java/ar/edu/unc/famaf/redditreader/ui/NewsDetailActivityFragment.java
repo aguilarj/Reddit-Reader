@@ -68,7 +68,7 @@ public class NewsDetailActivityFragment extends Fragment {
 
                 Log.d(TAG, "Bitmap loaded from database");
             } else {
-                ImageDownloader.download(post.getImage(),
+                ImageDownloader.download(post.getURL(),
                         image,
                         progressBar,
                         post.getId(),
@@ -81,7 +81,7 @@ public class NewsDetailActivityFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getActivity(), WebViewActivity.class);
-                    intent.putExtra(WebViewActivity.POST_LINK, post.getImage());
+                    intent.putExtra(WebViewActivity.POST_LINK, post.getURL());
                     startActivity(intent);
                 }
             });

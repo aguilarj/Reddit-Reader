@@ -47,7 +47,7 @@ public class RedditDB {
             values.put(RedditDBHelper.POST_TABLE_SUBREDDIT, postModel.getSubreddit());
             values.put(RedditDBHelper.POST_TABLE_POST_ID, postModel.getId());
             values.put(RedditDBHelper.POST_TABLE_POST_HINT, postModel.getPostHint());
-            values.put(RedditDBHelper.POST_TABLE_IMAGE_URL, postModel.getImage());
+            values.put(RedditDBHelper.POST_TABLE_URL, postModel.getURL());
             values.putNull(RedditDBHelper.POST_TABLE_THUMBNAIL_BITMAP);
             values.putNull(RedditDBHelper.POST_TABLE_IMAGE_BITMAP);
 
@@ -82,7 +82,7 @@ public class RedditDB {
                 postModel.setSubreddit(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_SUBREDDIT))));
                 postModel.setId(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_POST_ID))));
                 postModel.setPostHint(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_POST_HINT))));
-                postModel.setImage(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_IMAGE_URL))));
+                postModel.setURL(c.getString((c.getColumnIndexOrThrow(RedditDBHelper.POST_TABLE_URL))));
 
                 postModels.add(postModel);
             } while(c.moveToNext());
